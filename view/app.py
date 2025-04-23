@@ -3,7 +3,6 @@ from controller.view_controller import ThemeController
 
 
 
-
 class App(ctk.CTk):
 
     def __init__(self):
@@ -11,6 +10,7 @@ class App(ctk.CTk):
         self.__controller = ThemeController(self)
         self.__current_theme = self.__controller.widgets
         self.__config_page()
+
 
     def __config_page(self) -> None:
         """

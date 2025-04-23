@@ -21,6 +21,7 @@ class LightThemeCreator(AWidgetFactory):
         self._frame = ctk.CTkFrame(self._main, fg_color='white', width=700, height=700)
         self._frame.pack()
 
+
     def _create_exit_button(self) -> None:
         self._exit_btn = ctk.CTkButton(self._frame,
                                        text='Close',
@@ -68,4 +69,5 @@ class LightThemeCreator(AWidgetFactory):
 
 
     def _create_city_weather_label(self):
-        pass
+        for city in self.__city_list:
+            self._city_weather_label = ctk.CTkLabel(self._frame)

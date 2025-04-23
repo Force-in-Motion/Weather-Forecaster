@@ -14,7 +14,8 @@ class DarkThemeCreator(AWidgetFactory):
         self._create_main_frame()
         self._create_exit_button()
         self._create_swap_cbox()
-        self._create_label()
+        self._create_title_label()
+        self._create_city_weather_label()
 
 
     def _create_main_frame(self) -> None:
@@ -56,6 +57,18 @@ class DarkThemeCreator(AWidgetFactory):
         self._swap_theme_cbox.place(relx=0.8, rely=0.02)
 
 
+    def _create_title_label(self) -> None:
+        self._title = ctk.CTkLabel(self._frame,
+                                   width=400,
+                                   height=70,
+                                   font=('Helvetica', 24, 'bold'),
+                                   fg_color="transparent",
+                                   justify='center',
+                                   text='Weather forecast by city',
+                                   text_color='#ad321c')
 
-    def _create_label(self) -> None:
+        self._title.place(relx=0.2, rely=0.02)
+
+
+    def _create_city_weather_label(self):
         pass

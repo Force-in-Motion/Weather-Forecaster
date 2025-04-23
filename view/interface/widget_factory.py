@@ -13,7 +13,7 @@ class AWidgetFactory(ABC):
 
 
     @abstractmethod
-    def _create_main_frame(self) -> None:
+    def _create_main_frame(self, *args, **kwargs) -> None:
         pass
 
 

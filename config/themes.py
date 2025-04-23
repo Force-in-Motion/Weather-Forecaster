@@ -1,0 +1,1 @@
+themes = ['Light', 'Dark', 'Gray']

@@ -1,6 +1,6 @@
 from config.weather_token import api_key
 from tools.processing import ProcessingData as pd
-from tools.request import get_data_from_server
+from tools.request import Requests as rq
 
 
 class Weather:
@@ -20,13 +20,13 @@ class Weather:
         """
         try:
 
-            weather_data = get_data_from_server(api_key, self.__city)
+            weather_data = rq.get_data_from_server(api_key, self.__city)
 
             self.__current_temp = weather_data['current']['temp_c']
 
             self.__humidity = weather_data['current']['humidity']
 
-            self.__pressure = pd.converts_to_bars(weather_data['current']['pressure_mb'])
+            self.__pressure = pd.converts_pressure_in_mm_hg(weather_data['current']['pressure_mb'])
 
             self.__wind_speed = pd.converts_wind_speed_in_mps(weather_data['current']['wind_kph'])
 
@@ -60,3 +60,6 @@ class Weather:
          :return: Возвращает текущую скорость ветра, для конкретного города
          """
         return self.__wind_speed
+
+w = Weather('Volgograd')
+print(w.wind_speed, w.pressure)

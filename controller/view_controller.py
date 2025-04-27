@@ -1,8 +1,8 @@
 
 from config.cities import city_list
-from view.themes.dark import DarkThemeFactory
-from view.themes.gray import GrayThemeFactory
-from view.themes.light import LightThemeFactory
+from view.themes.factory.dark import DarkThemeFactory
+from view.themes.factory.gray import GrayThemeFactory
+from view.themes.factory.light import LightThemeFactory
 
 
 class ThemeController:

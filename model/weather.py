@@ -4,6 +4,7 @@ from tools.request import get_data_from_server
 
 
 class Weather:
+
     def __init__(self, city):
         self.__city: str = city
         self.__current_temp: str | None = None
@@ -12,7 +13,11 @@ class Weather:
         self.__wind_speed: str | None = None
         self.__set_weather_data()
 
-    def __set_weather_data(self):
+    def __set_weather_data(self) -> None:
+        """
+        Заполняет описание объекта данными, полученными из внешнего ресурса, полученными при помощи инструментов
+        :return: None
+        """
         try:
 
             weather_data = get_data_from_server(api_key, self.__city)
@@ -29,17 +34,29 @@ class Weather:
             print(e)
 
     @property
-    def current_temp(self):
+    def current_temp(self) -> str:
+        """
+        :return: Возвращает текущую температуру, для конкретного города
+        """
         return self.__current_temp
 
     @property
-    def humidity(self):
+    def humidity(self) -> str:
+        """
+         :return: Возвращает текущую влажность, для конкретного города
+         """
         return self.__humidity
 
     @property
-    def pressure(self):
+    def pressure(self) -> str:
+        """
+         :return: Возвращает текущее атмосферное давление, для конкретного города
+         """
         return self.__pressure
 
     @property
-    def wind_speed(self):
+    def wind_speed(self) -> str:
+        """
+         :return: Возвращает текущую скорость ветра, для конкретного города
+         """
         return self.__wind_speed

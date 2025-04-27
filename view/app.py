@@ -17,7 +17,7 @@ class App(ctk.CTk):
         Определяет конфигурацию главного окна приложения
         :return: None
         """
-        self.geometry('700x700')
+        self.geometry('800x700')
         self.title('Weather Forecaster')
         self.resizable(False, False)
 

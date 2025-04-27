@@ -5,7 +5,9 @@ class AWidgetFactory(ABC):
 
     def __init__(self, main):
         self._main = main
-        self._frame: ctk.CTkFrame | None = None
+        self._main_frame: ctk.CTkFrame | None = None
+        self._city_labels_frame: ctk.CTkFrame | None = None
+        self._update_btn: ctk.CTkButton | None = None
         self._exit_btn: ctk.CTkButton | None = None
         self._title_label: ctk.CTkLabel | None = None
         self._city_weather_label: ctk.CTkLabel | None = None
@@ -16,6 +18,14 @@ class AWidgetFactory(ABC):
     def _create_main_frame(self, *args, **kwargs) -> None:
         pass
 
+
+    @abstractmethod
+    def _create_city_labels_frame(self, *args, **kwargs) -> None:
+        pass
+
+    @abstractmethod
+    def _create_update_button(self, *args, **kwargs) -> None:
+        pass
 
     @abstractmethod
     def _create_exit_button(self, *args, **kwargs) -> None:

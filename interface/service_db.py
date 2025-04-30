@@ -76,20 +76,13 @@ class AFacade(ABC):
         pass
 
     @abstractmethod
-    def _update_list_weather_objects(self):
+    def update_list_weather_objects(self):
         pass
 
     @abstractmethod
-    def _automatically_updates_db(self):
+    def automatically_updates_db(self):
         pass
 
-    @abstractmethod
-    def _automatically_updates_list_weather_objects(self):
-        pass
-
-    @abstractmethod
-    def run_auto_updates(self):
-        pass
 
     @abstractmethod
     def weather_objects(self):

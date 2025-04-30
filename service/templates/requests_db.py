@@ -20,3 +20,4 @@ get_record = """ SELECT * FROM CityWeather """
 
 
 clear_table = """ DELETE FROM CityWeather"""
+del_id = """ DELETE FROM sqlite_sequence WHERE name='CityWeather' """

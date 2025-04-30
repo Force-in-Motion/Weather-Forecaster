@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 
 
 class AWeatherStation(ABC):
-    def __init__(self):
+    def __init__(self, facade):
+        self._facade = facade
         self._subscribers: list = []
 
     @abstractmethod

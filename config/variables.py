@@ -1,4 +1,9 @@
-city_list = [
+CONFIG = 'config'
+API = 'api.json'
+STORAGE = 'storage'
+DB = 'database.db'
+DOTS = '..'
+CITY_LIST = [
     "Москва -                       ",
     "Санкт-Петербург -      ",
     "Новосибирск -            ",

@@ -14,15 +14,15 @@ class Weather(AWeather):
         Заполняет описание объекта данными, полученными из внешнего ресурса, полученными при помощи инструментов
         :return: None
         """
-        self._city = self._record[0]
+        self._city = self._record[1]
 
-        self._current_temp = self._record[1]
+        self._current_temp = self._record[2]
 
-        self._humidity = self._record[2]
+        self._humidity = self._record[3]
 
-        self._pressure = self._record[3]
+        self._pressure = self._record[4]
 
-        self._wind_speed = self._record[4]
+        self._wind_speed = self._record[5]
 
 
     @property
@@ -56,7 +56,3 @@ class Weather(AWeather):
     @property
     def city(self) -> str:
         return self._city
-
-
-w = Weather('Volgograd')
-print(w.current_temp, w.pressure)

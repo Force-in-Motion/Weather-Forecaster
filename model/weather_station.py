@@ -1,41 +1,37 @@
-from config.cities import city_list
+
 from interface.weather_station import AWeatherStation
-from service.model.weather import Weather
 
 
 
 class WeatherStation(AWeatherStation):
 
-    def __init__(self):
-        super().__init__()
-        self.__list_weather_objects: list[Weather] = []
-        self.__update_list_weather_objects()
+    def __init__(self, facade):
+        super().__init__(facade)
 
+    def add_subscriber(self, subscriber):
+        if subscriber not in self._subscribers:
+            self._subscribers.append(subscriber)
 
-    def __update_list_weather_objects(self):
-        self.__list_weather_objects.clear()
+    def remove_subscriber(self, subscriber):
+        if subscriber in self._subscribers:
+            self._subscribers.remove(subscriber)
 
-        for city in city_list:
-            self.__list_weather_objects.append(Weather(city))
+    def notification(self):
+        for subscriber, weather_object in zip(self._subscribers, self._facade.weather_objects):
+            subscriber.update_data(weather_object)
 
-
-    def add_subscriber(self, subscribers) -> None:
-        self._subscribers.append(subscribers)
-
-
-    def remove_subscriber(self, subscribers) -> None:
-        self._subscribers.remove(subscribers)
-
-
-    def notification(self) -> None:
-        for index, subscriber in enumerate(self._subscribers):
-            subscriber.update_data(self.__list_weather_objects[index])
 
     def update(self):
-        self.__update_list_weather_objects()
+        self._facade.update_list_weather_objects()
         self.notification()
 
 
     @property
+    def subscribers(self):
+        return self._subscribers
+
+    @property
     def count(self):
-        return self.__list_weather_objects
+        return self._facade.weather_objects
+
+

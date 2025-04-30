@@ -48,6 +48,7 @@ class DBOperations(ADB):
         """
         try:
             ld.connect(clear_table)
+            ld.connect(del_id)
             return True
         except Exception as e:
             raise RuntimeError(f"Ошибка при очистке таблицы: {e}")

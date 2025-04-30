@@ -1,18 +1,24 @@
+import threading
+
+from config.variables import *
+from tools.load_data import LoadData as ld
 from model.weather_station import WeatherStation
 from view.themes.factory.dark import DarkThemeFactory
 from view.themes.factory.gray import GrayThemeFactory
 from view.themes.factory.light import LightThemeFactory
+from service.model.facade import WeatherDataManager
 
 
-class ThemeController:
+class DataController:
 
     def __init__(self, main):
         self.__main = main
         self.__current_theme = 'Light'
-        self.__weather_station = WeatherStation()
+        self.__db_service = WeatherDataManager(ld.get_data(), CITY_LIST)
+        self.__weather_station = WeatherStation(self.__db_service)
         self.__widgets = self.__create_factory()
-        self.on_update_click()
-
+        self.__weather_station.notification()
+        self.__loader = ld.loader(self.__db_service.automatically_updates_db)
 
     def __create_factory(self) -> object:
         """
@@ -38,11 +44,13 @@ class ThemeController:
         :return: None
         """
 
+        for subscriber in self.__weather_station.subscribers[:]:
+            subscriber.unsubscribe()
+
         for widget in self.__main.winfo_children():
             widget.destroy()
 
         self.__current_theme = selected_theme
-
         self.__widgets = self.__create_factory()
 
 
@@ -54,3 +62,7 @@ class ThemeController:
     @property
     def widgets(self):
         return self.__widgets
+
+
+
+

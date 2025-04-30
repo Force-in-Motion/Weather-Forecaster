@@ -27,6 +27,8 @@ class CityWeatherLabel(ctk.CTkLabel):
         self.__publisher = publisher
         self.__subscribe()
 
+    def unsubscribe(self) -> None:
+        self.__publisher.remove_subscriber(self)
 
     def __subscribe(self) -> None:
         self.__publisher.add_subscriber(self)

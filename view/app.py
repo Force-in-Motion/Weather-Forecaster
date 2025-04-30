@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from controller.view_controller import ThemeController
+from controller.view_controller import DataController
 
 
 
@@ -7,7 +7,7 @@ class App(ctk.CTk):
 
     def __init__(self):
         super().__init__()
-        self.__controller = ThemeController(self)
+        self.__controller = DataController(self)
         self.__current_theme = self.__controller.widgets
         self.__config_page()
 

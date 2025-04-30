@@ -1,53 +1,31 @@
 import json
 import os
 import sqlite3
+import threading
+from config.variables import *
 
 
 class LoadData:
 
     @staticmethod
-    def get_token_path() -> str:
+    def get_path(a, b, c):
         """
         Создает относительный путь к файлу common_areas
         :return: Путь в виде строки
         """
         current_dir = os.path.dirname(__file__)
-        path_token = os.path.join(current_dir, '..', 'config', 'token', 'weather_api.json')
+        path = os.path.join(current_dir, a, b, c)
 
-        return os.path.abspath(path_token)
-
-
-
-    @staticmethod
-    def get_db_path() -> str:
-        """
-        Создает относительный путь к файлу common_areas
-        :return: Путь в виде строки
-        """
-        current_dir = os.path.dirname(__file__)
-        path_db = os.path.join(current_dir, '..', 'storage', 'database.db')
-
-        return os.path.abspath(path_db)
+        return os.path.abspath(path)
 
 
     @staticmethod
-    def del_file(path) -> None:
-        """
-        Удаляет файл по полученному пути
-        :param path: Принимает путь
-        :return: None
-        """
-        if os.path.exists(path):
-            os.remove(path)
-
-
-    @staticmethod
-    def get_token() -> str:
+    def get_data() -> str:
         """
         Получает токен по указанному пути
         :return: Токен в виде строки
         """
-        with open(LoadData.get_token_path(), 'r', encoding='utf-8') as f:
+        with open(LoadData.get_path(DOTS, CONFIG, API), 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data['api_key']
 
@@ -61,7 +39,7 @@ class LoadData:
         :param params: кортеж параметров для запроса (по умолчанию пустой)
         :return: sqlite3.Cursor
         """
-        db_path = LoadData.get_db_path()
+        db_path = LoadData.get_path(DOTS, STORAGE, DB)
 
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
@@ -70,3 +48,8 @@ class LoadData:
             else:
                 cursor.execute(query)
             return cursor
+
+
+    @staticmethod
+    def loader(updates_db):
+        threading.Thread(target=updates_db, daemon=True).start()

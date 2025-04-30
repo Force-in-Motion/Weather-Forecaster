@@ -20,7 +20,6 @@ class GrayThemeFactory(AWidgetFactory):
         self._create_swap_cbox()
         self._create_title_label()
         self._create_city_weather_label()
-        self.__weather_station.update()
 
 
     def _create_main_frame(self) -> None:
@@ -47,5 +46,5 @@ class GrayThemeFactory(AWidgetFactory):
 
 
     def _create_city_weather_label(self):
-        for elem in self.__weather_station.count:
+        for _ in self.__weather_station.count:
             self._city_weather_label = CityWeatherLabel(self._city_weather_frame, self.__weather_station)

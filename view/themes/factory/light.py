@@ -8,10 +8,10 @@ from view.themes.widgets.light.labels import TitleLabel, CityWeatherLabel
 
 class LightThemeFactory(AWidgetFactory):
 
-    def __init__(self, controller, main, city_list):
+    def __init__(self, controller, main, weather_station):
         super().__init__(main)
-        self.__city_list: list[str] = city_list
         self.__controller = controller
+        self.__weather_station = weather_station
         self._create_main_frame()
         self._create_city_weather_frame()
         self._create_update_button()
@@ -19,6 +19,7 @@ class LightThemeFactory(AWidgetFactory):
         self._create_swap_cbox()
         self._create_title_label()
         self._create_city_weather_label()
+        self.__weather_station.update()
 
 
     def _create_main_frame(self) -> None:
@@ -30,7 +31,7 @@ class LightThemeFactory(AWidgetFactory):
 
 
     def _create_update_button(self) -> None:
-        self._update_btn = UpdateButton(self._main_frame)
+        self._update_btn = UpdateButton(self._main_frame, self.__weather_station)
 
 
     def _create_exit_button(self) -> None:
@@ -45,5 +46,5 @@ class LightThemeFactory(AWidgetFactory):
 
 
     def _create_city_weather_label(self):
-        for index, city in enumerate(self.__city_list):
-            self._city_weather_label = CityWeatherLabel(self._city_weather_frame, city)
+        for elem in self.__weather_station.count:
+            self._city_weather_label = CityWeatherLabel(self._city_weather_frame, self.__weather_station)

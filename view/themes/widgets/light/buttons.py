@@ -3,8 +3,8 @@ import customtkinter as ctk
 
 
 class UpdateButton(ctk.CTkButton):
-    def __init__(self, main):
-        super().__init__(main,
+    def __init__(self, main_frame, weather_station):
+        super().__init__(main_frame,
                          width=200,
                          height=50,
                          text='Update',
@@ -12,7 +12,7 @@ class UpdateButton(ctk.CTkButton):
                          fg_color='#18a5cc',
                          font=('Helvetica', 18, 'bold'),
                          hover_color='#117996',
-                         )
+                         command=weather_station.update)
 
         self.place(relx=0.55, rely=0.85)
 

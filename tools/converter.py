@@ -1,4 +1,4 @@
-class ProcessingData:
+class Converter:
 
     @staticmethod
     def converts_pressure_in_mm_hg(pressure_mb) -> float:

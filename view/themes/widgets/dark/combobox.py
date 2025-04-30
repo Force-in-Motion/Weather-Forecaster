@@ -5,19 +5,19 @@ from config.themes import themes
 class SwapCbox(ctk.CTkComboBox):
     def __init__(self, main, controller):
         super().__init__(main,
-                         text_color='#a7a5a8',
-                         values=themes,
-                         fg_color='black',
                          width=120,
                          height=40,
+                         values=themes,
                          justify='center',
-                         button_color='#ad321c',
+                         text_color='black',
+                         fg_color='#a39e9e',
+                         border_color='#18a5cc',
+                         button_color='#18a5cc',
+                         dropdown_text_color='black',
+                         dropdown_fg_color='#a39e9e',
+                         button_hover_color='#117996',
                          font=('Helvetica', 14, 'bold'),
-                         button_hover_color='#732011',
-                         border_color='#ad321c',
-                         dropdown_text_color='#a7a5a8',
-                         dropdown_fg_color='black',
                          command=controller.swap_theme)
 
-        self.set('Dark')
+        self.set('Light')
         self.place(relx=0.8, rely=0.02)

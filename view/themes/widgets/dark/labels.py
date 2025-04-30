@@ -4,15 +4,15 @@ import customtkinter as ctk
 
 class TitleLabel(ctk.CTkLabel):
 
-    def __init__(self, master):
-        super().__init__(master,
+    def __init__(self, main):
+        super().__init__(main,
                          width=400,
                          height=60,
                          font=('Helvetica', 24, 'bold'),
                          fg_color="transparent",
                          justify='center',
                          text='Weather forecast by city',
-                         text_color='#ad321c')
+                         text_color='black')
 
         self.place(relx=0.2, rely=0.01)
 
@@ -20,12 +20,22 @@ class TitleLabel(ctk.CTkLabel):
 
 class CityWeatherLabel(ctk.CTkLabel):
 
-    def __init__(self, master, city):
-        super().__init__(master,
-                         text_color='#a7a5a8',
-                         anchor='w',
-                         font=('Helvetica', 18, 'bold'),
-                         text=f'{city} - Температура: ')
+    def __init__(self, main, publisher):
+        super().__init__(main, text_color='black', anchor='w', font=('Helvetica', 14, 'bold'))
+        self.pack(fill='x', padx=10, pady=7)
+        self.__main = main
+        self.__publisher = publisher
+        self.__subscribe()
 
-        self.pack(fill='x', padx=10, pady=14)
+
+    def __subscribe(self) -> None:
+        self.__publisher.add_subscriber(self)
+
+
+    def update_data(self, weather_object) -> None:
+        self.configure(text=f'{weather_object.city}  Температура: {weather_object.current_temp} '
+                            f'     Ветер: {weather_object.wind_speed} '
+                            f'     Влажность: {weather_object.humidity} '
+                            f'     Давление: {weather_object.pressure}')
+
 

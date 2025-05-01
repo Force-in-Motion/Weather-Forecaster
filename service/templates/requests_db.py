@@ -18,4 +18,4 @@ add_record =   """
 get_record = """ SELECT * FROM CityWeather """
 
 
-update_record = """ UPDATE CityWeather SET temperature = ?, humidity = ?, pressure = ?, wind_speed = ? WHERE city = ?"""
+update_record = """ UPDATE CityWeather SET temperature = ?, humidity = ?, pressure = ?, wind_speed = ? WHERE city = ? """

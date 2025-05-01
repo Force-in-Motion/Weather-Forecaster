@@ -6,11 +6,12 @@ from config.variables import *
 
 
 class LoadData:
+    """ Класс, содержащий служебные методы получения пути и доступа к данным """
 
     @staticmethod
-    def get_path(a, b, c):
+    def get_path(a: str, b: str, c: str) -> str:
         """
-        Создает относительный путь к файлу common_areas
+        Создает относительный путь к файлу
         :return: Путь в виде строки
         """
         current_dir = os.path.dirname(__file__)
@@ -52,7 +53,11 @@ class LoadData:
             raise RuntimeError(f"Ошибка при выполнении запроса: {e}")
 
 
-
     @staticmethod
-    def loader(updates_db):
+    def loader(updates_db) -> None:
+        """
+        В потоке запускает метод обновления базы данных
+        :param updates_db:
+        :return:
+        """
         threading.Thread(target=updates_db, daemon=True).start()

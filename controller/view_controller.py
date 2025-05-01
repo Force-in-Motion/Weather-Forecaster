@@ -1,24 +1,24 @@
 from config.variables import *
 from service.operations.db_operations import DBOperations
-from tools.load_data import LoadData as ld
-from model.weather_station import WeatherPublisher
-from view.themes.factory.dark import DarkThemeFactory
-from view.themes.factory.gray import GrayThemeFactory
-from view.themes.factory.light import LightThemeFactory
 from service.model.facade import WeatherDataService
+from model.weather_station import WeatherPublisher
+from view.factory.dark import DarkThemeFactory
+from view.factory.gray import GrayThemeFactory
+from view.factory.light import LightThemeFactory
+from tools.load_data import LoadData as ld
 
 
 class DataController:
+    """ Главный распределительный узел системы """
 
     def __init__(self, main):
         self.__main = main
-        self.__current_theme = 'Light'
+        self.__current_theme = 'light'
         self.__db_service = DBOperations()
         self.__weather_service = WeatherDataService(ld.get_data(), CITY_LIST, self.__db_service)
         self.__loader = ld.loader(self.__weather_service.automatically_updates_db)
         self.__weather_station = WeatherPublisher(self.__weather_service)
         self.__widgets = self.__create_factory()
-        self.__weather_station.notification()
 
 
     def __create_factory(self) -> object:
@@ -26,18 +26,23 @@ class DataController:
         Создает соответствующую фабрику на основе имени темы.
         :return: Экземпляр соответствующей фабрики.
         """
+        if self.__current_theme == 'light':
+            light = LightThemeFactory(self, self.__main, self.__weather_station)
+            self.__weather_station.notification()
+            return light
 
-        if self.__current_theme == 'Light':
-            return LightThemeFactory(self, self.__main, self.__weather_station)
+        elif self.__current_theme == 'dark':
+            dark = DarkThemeFactory(self, self.__main, self.__weather_station)
+            self.__weather_station.notification()
+            return dark
 
-        elif self.__current_theme == 'Dark':
-            return DarkThemeFactory(self, self.__main, self.__weather_station)
+        elif self.__current_theme == 'gray':
+            gray = GrayThemeFactory(self, self.__main, self.__weather_station)
+            self.__weather_station.notification()
+            return gray
 
-        elif self.__current_theme == 'Gray':
-            return GrayThemeFactory(self, self.__main, self.__weather_station)
 
-
-    def swap_theme(self, selected_theme) -> None:
+    def swap_theme(self, selected_theme: str) -> None:
         """
         Переключает тему на основе выбранного значения из combobox`s.
         Уничтожает существующие виджеты и создает новые для новой темы.
@@ -52,16 +57,21 @@ class DataController:
             widget.destroy()
 
         self.__current_theme = selected_theme
+
         self.__widgets = self.__create_factory()
 
 
-    def on_update_click(self):
+    def on_update_click(self) -> None:
+        """
+        Обрабатывает клик по кнопке обновления текстовых данных в лейблах главной страницы
+        :return:
+        """
         self.__weather_station.notification()
 
 
     def on_exit_click(self) -> None:
         """
-        При нажатии на кнопку вызывает метод соответствующего контроллера.
+        Обрабатывает клик по кнопке выхода из программы
         :return: None
         """
         self.__main.destroy()
@@ -69,6 +79,10 @@ class DataController:
 
     @property
     def widgets(self):
+        """
+        Возвращает все виджеты, соответствующее выбранной теме
+        :return:
+        """
         return self.__widgets
 
 

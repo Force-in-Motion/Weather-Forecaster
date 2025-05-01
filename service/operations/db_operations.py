@@ -4,11 +4,13 @@ from interface.service_db import ADB
 
 
 class DBOperations(ADB):
+    """ Объект содержащий методы работы с базой данных """
+
     def __init__(self):
         self._create_table()
 
 
-    def _create_table(self) -> None:
+    def _create_table(self) -> None | Exception:
         """
         Создает таблицу погоды в базе данных
         """
@@ -22,7 +24,7 @@ class DBOperations(ADB):
             self.close_connect(self._cursor, self._connect)
 
 
-    def add_record(self, *args) -> None:
+    def add_record(self, *args) -> None | Exception:
         """
         Добавляет запись в базу данных
         :param args: параметры для SQL-запроса добавления записи
@@ -38,7 +40,7 @@ class DBOperations(ADB):
             self.close_connect(self._cursor, self._connect)
 
 
-    def get_records(self):
+    def get_records(self) -> None | Exception:
         """
         Получает все записи из базы данных
         :return: Кортеж записей
@@ -54,10 +56,10 @@ class DBOperations(ADB):
             self.close_connect(self._cursor, self._connect)
 
 
-    def update_record(self, *args):
+    def update_record(self, *args) -> None | Exception:
         """
-        Очищает таблицу базы данных
-        :return: True если успешно
+        Обновляет таблицу базы данных
+        :return: None | Exception
         """
         print(args)
         try:
@@ -72,7 +74,13 @@ class DBOperations(ADB):
 
 
 
-    def close_connect(self, cursor, connect):
+    def close_connect(self, cursor, connect) -> None:
+        """
+        Закрывает соединение с базой данных
+        :param cursor: объект курсора
+        :param connect: объект соединения
+        :return: None
+        """
         if connect:
             cursor.close()
             connect.close()

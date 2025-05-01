@@ -3,6 +3,8 @@ import customtkinter as ctk
 
 
 class UpdateButton(ctk.CTkButton):
+    """ Формирует объект кнопки, отвечающей за обновление данных в лейблах """
+
     def __init__(self, main_frame, weather_station):
         super().__init__(main_frame,
                          width=200,
@@ -19,6 +21,8 @@ class UpdateButton(ctk.CTkButton):
 
 
 class ExitButton(ctk.CTkButton):
+    """ Формирует объект кнопки, отвечающей за выход из программы """
+
     def __init__(self, main_frame, main):
         super().__init__(main_frame,
                          width=200,

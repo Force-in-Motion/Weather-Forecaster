@@ -17,7 +17,3 @@ class AWeatherStation(ABC):
     @abstractmethod
     def notification(self, *args, **kwargs) -> None:
         pass
-
-    @abstractmethod
-    def update(self, *args, **kwargs):
-        pass

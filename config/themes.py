@@ -1,1 +1,1 @@
-themes = ['Light', 'Dark', 'Gray']
+themes = ['light', 'dark', 'gray']

@@ -3,6 +3,7 @@ from config.themes import themes
 
 
 class SwapCbox(ctk.CTkComboBox):
+    """ Формирует объект Combobox, содержащий названия тем для их смены """
     def __init__(self, main, controller):
         super().__init__(main,
                          width=120,

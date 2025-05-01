@@ -1,4 +1,5 @@
 class Converter:
+    """ Класс, содержащий инструменты для конвертации данных """
 
     @staticmethod
     def converts_pressure_in_mm_hg(pressure_mb) -> float:

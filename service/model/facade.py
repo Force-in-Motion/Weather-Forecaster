@@ -15,16 +15,21 @@ class WeatherDataManager(AFacade):
 
 
     def _update_db(self):
-        if self._db.get_records():
-            self._db.delete_records()
-
         for city in self._city_list:
             result = rd.get_weather_data(self._api_key, city)
-            self._db.add_record(*result)
+
+            existing_records = self._db.get_records()
+
+            if any(record[0] == city for record in existing_records):
+                self._db.update_record(city, *result[1:])
+
+            else:
+                self._db.add_record(*result)
 
 
     def update_list_weather_objects(self):
-        self._list_weather_objects.clear()
+        if self._list_weather_objects:
+            self._list_weather_objects.clear()
 
         records = self._db.get_records()
         for record in records:
@@ -43,7 +48,7 @@ class WeatherDataManager(AFacade):
                 except Exception as e:
                     print(f"Ошибка обновления базы данных: {e}")
                 last_db_update = current_time
-
+                self._list_weather_objects = [Weather(record) for record in self._db.get_records()]
 
     @property
     def weather_objects(self):

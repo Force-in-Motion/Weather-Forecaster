@@ -18,7 +18,7 @@ class TitleLabel(ctk.CTkLabel):
 
 
 
-class CityWeatherLabel(ctk.CTkLabel):
+class WeatherSubscriber(ctk.CTkLabel):
 
     def __init__(self, main, publisher):
         super().__init__(main, text_color='black', anchor='w', font=('Helvetica', 14, 'bold'))

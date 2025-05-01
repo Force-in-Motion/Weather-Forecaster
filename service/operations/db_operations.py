@@ -26,7 +26,7 @@ class DBOperations(ADB):
         try:
             ld.connect(add_record, args)
         except Exception as e:
-            raise RuntimeError(f"Невозможно добавить запись: {e}")
+            raise RuntimeError(f"Ошибка при добавлении записи: {e}")
 
 
     def get_records(self) -> tuple[tuple[str]]:
@@ -41,14 +41,13 @@ class DBOperations(ADB):
             raise RuntimeError(f"Ошибка при получении записей: {e}")
 
 
-    def delete_records(self) -> bool:
+    def update_record(self, *args) -> bool:
         """
         Очищает таблицу базы данных
         :return: True если успешно
         """
         try:
-            ld.connect(clear_table)
-            ld.connect(del_id)
+            ld.connect(update_record, args)
             return True
         except Exception as e:
             raise RuntimeError(f"Ошибка при очистке таблицы: {e}")

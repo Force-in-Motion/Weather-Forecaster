@@ -3,7 +3,7 @@ from interface.widget_factory import AWidgetFactory
 from view.themes.widgets.light.combobox import SwapCbox
 from view.themes.widgets.light.buttons import UpdateButton, ExitButton
 from view.themes.widgets.light.frames import MainFrame, CityWeatherFrame
-from view.themes.widgets.light.labels import TitleLabel, CityWeatherLabel
+from view.themes.widgets.light.labels import TitleLabel, WeatherSubscriber
 
 
 class LightThemeFactory(AWidgetFactory):
@@ -46,4 +46,4 @@ class LightThemeFactory(AWidgetFactory):
 
     def _create_city_weather_label(self):
         for _ in self.__weather_station.count:
-            self._city_weather_label = CityWeatherLabel(self._city_weather_frame, self.__weather_station)
+            self._city_weather_label = WeatherSubscriber(self._city_weather_frame, self.__weather_station)

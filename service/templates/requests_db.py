@@ -1,6 +1,5 @@
 create_table =  """
                 CREATE TABLE IF NOT EXISTS CityWeather (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
                     city TEXT UNIQUE,
                     temperature REAL,
                     humidity REAL,
@@ -19,5 +18,4 @@ add_record =   """
 get_record = """ SELECT * FROM CityWeather """
 
 
-clear_table = """ DELETE FROM CityWeather"""
-del_id = """ DELETE FROM sqlite_sequence WHERE name='CityWeather' """
+update_record = """ UPDATE CityWeather SET temperature = ?, humidity = ?, pressure = ?, wind_speed = ? WHERE city = ?"""

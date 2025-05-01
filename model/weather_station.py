@@ -1,9 +1,8 @@
-
 from interface.weather_station import AWeatherStation
 
 
 
-class WeatherStation(AWeatherStation):
+class WeatherPublisher(AWeatherStation):
 
     def __init__(self, facade):
         super().__init__(facade)

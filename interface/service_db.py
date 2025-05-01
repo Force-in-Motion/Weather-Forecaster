@@ -58,7 +58,7 @@ class ADB(ABC):
         pass
 
     @abstractmethod
-    def delete_records(self) -> bool:
+    def update_record(self, *args) -> bool:
         pass
 
 

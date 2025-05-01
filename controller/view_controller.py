@@ -1,8 +1,6 @@
-import threading
-
 from config.variables import *
 from tools.load_data import LoadData as ld
-from model.weather_station import WeatherStation
+from model.weather_station import WeatherPublisher
 from view.themes.factory.dark import DarkThemeFactory
 from view.themes.factory.gray import GrayThemeFactory
 from view.themes.factory.light import LightThemeFactory
@@ -15,10 +13,10 @@ class DataController:
         self.__main = main
         self.__current_theme = 'Light'
         self.__db_service = WeatherDataManager(ld.get_data(), CITY_LIST)
-        self.__weather_station = WeatherStation(self.__db_service)
+        self.__loader = ld.loader(self.__db_service.automatically_updates_db)
+        self.__weather_station = WeatherPublisher(self.__db_service)
         self.__widgets = self.__create_factory()
         self.__weather_station.notification()
-        self.__loader = ld.loader(self.__db_service.automatically_updates_db)
 
     def __create_factory(self) -> object:
         """

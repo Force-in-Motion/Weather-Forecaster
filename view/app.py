@@ -22,14 +22,6 @@ class App(ctk.CTk):
         self.resizable(False, False)
 
 
-    def on_exit_click(self) -> None:
-        """
-        При нажатии на кнопку вызывает метод соответствующего контроллера.
-        :return: None
-        """
-        self.destroy()
-
-
     @classmethod
     def run(cls) -> None:
         """
@@ -37,11 +29,6 @@ class App(ctk.CTk):
         :return: None
         """
         page = cls()
-
-        # Привязка закрытия окна к методу on_exit_click
-        page.protocol("WM_DELETE_WINDOW", page.on_exit_click)
-
         page.lift()
         page.attributes('-topmost', True)
-
         page.mainloop()

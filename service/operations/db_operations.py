@@ -13,9 +13,13 @@ class DBOperations(ADB):
         Создает таблицу погоды в базе данных
         """
         try:
-            ld.connect(create_table)
+            self._cursor, self._connect = ld.connect(create_table)
+
         except Exception as e:
             raise RuntimeError(f"Ошибка при создании таблицы: {e}")
+
+        finally:
+            self.close_connect(self._cursor, self._connect)
 
 
     def add_record(self, *args) -> None:
@@ -24,32 +28,53 @@ class DBOperations(ADB):
         :param args: параметры для SQL-запроса добавления записи
         """
         try:
-            ld.connect(add_record, args)
+            self._cursor, self._connect = ld.connect(add_record, args)
+            self._connect.commit()
+
         except Exception as e:
-            raise RuntimeError(f"Ошибка при добавлении записи: {e}")
+            raise RuntimeError(f"Невозможно добавить запись: {e}")
+
+        finally:
+            self.close_connect(self._cursor, self._connect)
 
 
-    def get_records(self) -> tuple[tuple[str]]:
+    def get_records(self):
         """
         Получает все записи из базы данных
         :return: Кортеж записей
         """
         try:
-            cursor = ld.connect(get_record)
-            return cursor.fetchall()
+            self._cursor, self._connect = ld.connect(get_record)
+            return self._cursor.fetchall()
+
         except Exception as e:
             raise RuntimeError(f"Ошибка при получении записей: {e}")
 
+        finally:
+            self.close_connect(self._cursor, self._connect)
 
-    def update_record(self, *args) -> bool:
+
+    def update_record(self, *args):
         """
         Очищает таблицу базы данных
         :return: True если успешно
         """
+        print(args)
         try:
-            ld.connect(update_record, args)
-            return True
+            self._cursor, self._connect = ld.connect(update_record, args)
+            self._connect.commit()
+
         except Exception as e:
-            raise RuntimeError(f"Ошибка при очистке таблицы: {e}")
+            raise RuntimeError(f"Ошибка при обновлении таблицы: {e}")
+
+        finally:
+            self.close_connect(self._cursor, self._connect)
+
+
+
+    def close_connect(self, cursor, connect):
+        if connect:
+            cursor.close()
+            connect.close()
 
 

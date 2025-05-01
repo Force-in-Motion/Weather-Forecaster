@@ -18,7 +18,7 @@ class TitleLabel(ctk.CTkLabel):
 
 
 
-class CityWeatherLabel(ctk.CTkLabel):
+class WeatherSubscriber(ctk.CTkLabel):
 
     def __init__(self, main, publisher):
         super().__init__(main, text_color='black', anchor='w', font=('Helvetica', 14, 'bold'))
@@ -35,6 +35,7 @@ class CityWeatherLabel(ctk.CTkLabel):
 
 
     def update_data(self, weather_object) -> None:
+#        print(weather_object.city, weather_object.current_temp, weather_object.wind_speed, weather_object.humidity, weather_object.pressure)
         self.configure(text=f'{weather_object.city}  Температура: {weather_object.current_temp} '
                             f'     Ветер: {weather_object.wind_speed} '
                             f'     Влажность: {weather_object.humidity} '

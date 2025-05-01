@@ -34,7 +34,7 @@ class LightThemeFactory(AWidgetFactory):
 
 
     def _create_exit_button(self) -> None:
-        self._exit_btn = ExitButton(self._main_frame, self._main)
+        self._exit_btn = ExitButton(self._main_frame, self.__controller)
 
     def _create_swap_cbox(self) -> None:
         self._swap_theme_cbox = SwapCbox(self._main_frame, self.__controller)

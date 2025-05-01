@@ -43,6 +43,8 @@ class ADB(ABC):
 
     @abstractmethod
     def __init__(self):
+        self._connect = None
+        self._cursor = None
         self._create_table()
 
     @abstractmethod
@@ -66,9 +68,10 @@ class ADB(ABC):
 class AFacade(ABC):
 
     @abstractmethod
-    def __init__(self, api_key, city_list):
+    def __init__(self, api_key, city_list, db_service):
         self._api_key = api_key
         self._city_list = city_list
+        self._db_service = db_service
         self._list_weather_objects = []
 
     @abstractmethod
@@ -76,13 +79,8 @@ class AFacade(ABC):
         pass
 
     @abstractmethod
-    def update_list_weather_objects(self):
-        pass
-
-    @abstractmethod
     def automatically_updates_db(self):
         pass
-
 
     @abstractmethod
     def weather_objects(self):

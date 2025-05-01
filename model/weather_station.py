@@ -21,7 +21,6 @@ class WeatherPublisher(AWeatherStation):
 
 
     def update(self):
-        self._facade.update_list_weather_objects()
         self.notification()
 
 

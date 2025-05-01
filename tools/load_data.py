@@ -39,15 +39,18 @@ class LoadData:
         :param params: кортеж параметров для запроса (по умолчанию пустой)
         :return: sqlite3.Cursor
         """
-        db_path = LoadData.get_path(DOTS, STORAGE, DB)
+        conn = sqlite3.connect(LoadData.get_path(DOTS, STORAGE, DB))
+        cursor = conn.cursor()
 
-        with sqlite3.connect(db_path) as conn:
-            cursor = conn.cursor()
+        try:
             if params:
                 cursor.execute(query, params)
             else:
                 cursor.execute(query)
-            return cursor
+            return cursor, conn
+        except Exception as e:
+            raise RuntimeError(f"Ошибка при выполнении запроса: {e}")
+
 
 
     @staticmethod

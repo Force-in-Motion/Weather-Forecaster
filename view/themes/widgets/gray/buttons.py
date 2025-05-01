@@ -12,7 +12,7 @@ class UpdateButton(ctk.CTkButton):
                          fg_color='#18a5cc',
                          font=('Helvetica', 18, 'bold'),
                          hover_color='#117996',
-                         command=weather_station.update)
+                         command=weather_station.notification)
 
         self.place(relx=0.55, rely=0.85)
 

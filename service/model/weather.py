@@ -20,9 +20,9 @@ class Weather(AWeather):
 
         self._humidity = self._record[2]
 
-        self._pressure = self._record[3]
+        self._pressure = c.converts_pressure_in_mm_hg(self._record[3])
 
-        self._wind_speed = self._record[4]
+        self._wind_speed = c.converts_wind_speed_in_mps(self._record[4])
 
 
     @property

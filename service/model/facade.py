@@ -1,39 +1,29 @@
 from interface.service_db import AFacade
 from service.model.weather import Weather
 from service.operations.api_operations import RequestData as rd
-from service.operations.db_operations import DBOperations
 import time
 
 
 
-class WeatherDataManager(AFacade):
+class WeatherDataService(AFacade):
 
-    def __init__(self, api_key, city_list):
-        super().__init__(api_key, city_list)
-        self._db = DBOperations()
-        self._list_weather_objects = [Weather(record) for record in self._db.get_records()]
+    def __init__(self, api_key, city_list, db_service):
+        super().__init__(api_key, city_list, db_service)
+        self._list_weather_objects = [Weather(record) for record in self._db_service.get_records()]
 
 
     def _update_db(self):
+        existing_records = self._db_service.get_records()
+
         for city in self._city_list:
+
             result = rd.get_weather_data(self._api_key, city)
 
-            existing_records = self._db.get_records()
-
             if any(record[0] == city for record in existing_records):
-                self._db.update_record(city, *result[1:])
+                self._db_service.update_record(*result[1:], result[0])
 
             else:
-                self._db.add_record(*result)
-
-
-    def update_list_weather_objects(self):
-        if self._list_weather_objects:
-            self._list_weather_objects.clear()
-
-        records = self._db.get_records()
-        for record in records:
-            self._list_weather_objects.append(Weather(record))
+                self._db_service.add_record(*result)
 
 
     def automatically_updates_db(self):
@@ -48,7 +38,9 @@ class WeatherDataManager(AFacade):
                 except Exception as e:
                     print(f"Ошибка обновления базы данных: {e}")
                 last_db_update = current_time
-                self._list_weather_objects = [Weather(record) for record in self._db.get_records()]
+
+                self._list_weather_objects = [Weather(record) for record in self._db_service.get_records()]
+
 
     @property
     def weather_objects(self):

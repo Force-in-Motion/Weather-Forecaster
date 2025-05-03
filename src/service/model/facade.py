@@ -1,6 +1,6 @@
-from interface.service_db import AFacade
-from service.model.weather import Weather
-from service.operations.api_operations import RequestData as rd
+from src.interface.service_db import AFacade
+from src.service.model.weather import Weather
+from src.service.operations.api_operations import RequestData as rd
 import time
 
 

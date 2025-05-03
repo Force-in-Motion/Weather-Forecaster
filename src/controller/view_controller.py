@@ -1,11 +1,10 @@
-from config.variables import *
-from service.operations.db_operations import DBOperations
-from service.model.facade import WeatherDataService
-from model.weather_station import WeatherPublisher
-from view.factory.dark import DarkThemeFactory
-from view.factory.gray import GrayThemeFactory
-from view.factory.light import LightThemeFactory
-from tools.load_data import LoadData as ld
+from src.config.variables import *
+from src.service.operations.db_operations import DBOperations
+from src.service.model.facade import WeatherDataService
+from src.model.weather_station import WeatherPublisher
+from src.view.factory.factory import LightThemeFactory, GrayThemeFactory, DarkThemeFactory
+
+from src.tools.data_management import UpdateThreadLauncher as utl, FileLoader as fl
 
 
 class DataController:
@@ -15,8 +14,8 @@ class DataController:
         self.__main = main
         self.__current_theme = 'light'
         self.__db_service = DBOperations()
-        self.__weather_service = WeatherDataService(ld.get_data(), CITY_LIST, self.__db_service)
-        self.__loader = ld.loader(self.__weather_service.automatically_updates_db)
+        self.__weather_service = WeatherDataService(fl.get_data(), CITY_LIST, self.__db_service)
+        self.__loader = utl.loader(self.__weather_service.automatically_updates_db)
         self.__weather_station = WeatherPublisher(self.__weather_service)
         self.__widgets = self.__create_factory()
 

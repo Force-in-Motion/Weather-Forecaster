@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from controller.view_controller import DataController
+from src.controller.view_controller import DataController
 
 
 

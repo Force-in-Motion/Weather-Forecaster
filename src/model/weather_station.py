@@ -1,4 +1,4 @@
-from interface.weather_station import AWeatherStation
+from src.interface.weather_station import AWeatherStation
 
 
 

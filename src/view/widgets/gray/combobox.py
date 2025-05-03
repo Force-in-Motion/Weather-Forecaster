@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from config.themes import themes
+from src.config.themes import themes
 
 
 class SwapCbox(ctk.CTkComboBox):

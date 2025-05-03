@@ -2,20 +2,20 @@ import json
 import os
 import sqlite3
 import threading
-from config.variables import *
+from src.config.variables import *
 
 
-class LoadData:
+class FileLoader:
     """ Класс, содержащий служебные методы получения пути и доступа к данным """
 
     @staticmethod
-    def get_path(a: str, b: str, c: str) -> str:
+    def get_path(dots: str, name_directory: str, name_module: str) -> str:
         """
         Создает относительный путь к файлу
         :return: Путь в виде строки
         """
         current_dir = os.path.dirname(__file__)
-        path = os.path.join(current_dir, a, b, c)
+        path = os.path.join(current_dir, dots, name_directory, name_module)
 
         return os.path.abspath(path)
 
@@ -26,10 +26,13 @@ class LoadData:
         Получает токен по указанному пути
         :return: Токен в виде строки
         """
-        with open(LoadData.get_path(DOTS, CONFIG, API), 'r', encoding='utf-8') as f:
+        with open(FileLoader.get_path(DOTS, CONFIG, API), 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data['api_key']
 
+
+
+class DBConnector:
 
     @staticmethod
     def connect(query: str, params: tuple = ()):
@@ -40,7 +43,7 @@ class LoadData:
         :param params: кортеж параметров для запроса (по умолчанию пустой)
         :return: sqlite3.Cursor
         """
-        conn = sqlite3.connect(LoadData.get_path(DOTS, STORAGE, DB))
+        conn = sqlite3.connect(FileLoader.get_path(DOTS, STORAGE, DB))
         cursor = conn.cursor()
 
         try:
@@ -53,6 +56,10 @@ class LoadData:
             raise RuntimeError(f"Ошибка при выполнении запроса: {e}")
 
 
+
+
+class UpdateThreadLauncher:
+    
     @staticmethod
     def loader(updates_db) -> None:
         """

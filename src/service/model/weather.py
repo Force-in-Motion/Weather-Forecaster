@@ -1,5 +1,5 @@
-from interface.service_db import AWeather
-from tools.converter import Converter as c
+from src.interface.service_db import AWeather
+from src.tools.converter import Converter as c
 
 
 

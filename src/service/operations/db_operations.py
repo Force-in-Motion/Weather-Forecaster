@@ -1,6 +1,6 @@
-from service.templates.requests_db import *
-from tools.load_data import LoadData as ld
-from interface.service_db import ADB
+from src.service.templates.requests_db import *
+from src.tools.data_management import FileLoader as ld, DBConnector as dbc
+from src.interface.service_db import ADB
 
 
 class DBOperations(ADB):
@@ -15,7 +15,7 @@ class DBOperations(ADB):
         Создает таблицу погоды в базе данных
         """
         try:
-            self._cursor, self._connect = ld.connect(create_table)
+            self._cursor, self._connect = dbc.connect(create_table)
 
         except Exception as e:
             raise RuntimeError(f"Ошибка при создании таблицы: {e}")
@@ -30,7 +30,7 @@ class DBOperations(ADB):
         :param args: параметры для SQL-запроса добавления записи
         """
         try:
-            self._cursor, self._connect = ld.connect(add_record, args)
+            self._cursor, self._connect = dbc.connect(add_record, args)
             self._connect.commit()
 
         except Exception as e:
@@ -46,7 +46,7 @@ class DBOperations(ADB):
         :return: Кортеж записей
         """
         try:
-            self._cursor, self._connect = ld.connect(get_record)
+            self._cursor, self._connect = dbc.connect(get_record)
             return self._cursor.fetchall()
 
         except Exception as e:
@@ -61,9 +61,8 @@ class DBOperations(ADB):
         Обновляет таблицу базы данных
         :return: None | Exception
         """
-        print(args)
         try:
-            self._cursor, self._connect = ld.connect(update_record, args)
+            self._cursor, self._connect = dbc.connect(update_record, args)
             self._connect.commit()
 
         except Exception as e:

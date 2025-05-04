@@ -2,7 +2,9 @@ from src.config.variables import *
 from src.service.operations.db_operations import DBOperations
 from src.service.model.facade import WeatherDataService
 from src.model.weather_station import WeatherPublisher
-from src.view.factory.factory import LightThemeFactory, GrayThemeFactory, DarkThemeFactory
+from src.view.factory.dark import DarkThemeFactory
+from src.view.factory.gray import GrayThemeFactory
+from src.view.factory.light import LightThemeFactory
 
 from src.tools.data_management import UpdateThreadLauncher as utl, FileLoader as fl
 
@@ -48,7 +50,6 @@ class DataController:
         :param selected_theme: Текущая выбранная тема.
         :return: None
         """
-
         for subscriber in self.__weather_station.subscribers[:]:
             subscriber.unsubscribe()
 

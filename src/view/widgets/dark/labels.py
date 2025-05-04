@@ -13,7 +13,7 @@ class TitleLabel(ctk.CTkLabel):
                          fg_color="transparent",
                          justify='center',
                          text='Weather forecast by city',
-                         text_color='black')
+                         text_color='#661313')
 
         self.place(relx=0.2, rely=0.01)
 
@@ -25,7 +25,6 @@ class WeatherSubscriber(ctk.CTkLabel):
     def __init__(self, main, publisher):
         super().__init__(main, text_color='black', anchor='w', font=('Helvetica', 14, 'bold'))
         self.pack(fill='x', padx=10, pady=7)
-        self.__main = main
         self.__publisher = publisher
         self.__subscribe()
 

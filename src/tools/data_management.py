@@ -57,14 +57,19 @@ class DBConnector:
 
 
 
-
 class UpdateThreadLauncher:
     
     @staticmethod
-    def loader(updates_db) -> None:
+    def loader(updates_db) -> bool:
         """
         В потоке запускает метод обновления базы данных
         :param updates_db:
         :return:
         """
-        threading.Thread(target=updates_db, daemon=True).start()
+        try:
+            threading.Thread(target=updates_db, daemon=True).start()
+            return True
+
+        except Exception as e:
+            print(f"Ошибка при запуске потока: {e}")
+            return False

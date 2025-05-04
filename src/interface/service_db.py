@@ -68,7 +68,7 @@ class ADB(ABC):
 class AFacade(ABC):
 
     @abstractmethod
-    def __init__(self, api_key: str, city_list: list[AWeather], db_service: ADB):
+    def __init__(self, api_key: str, city_list: list[str], db_service: ADB):
         self._api_key = api_key
         self._city_list = city_list
         self._db_service = db_service
